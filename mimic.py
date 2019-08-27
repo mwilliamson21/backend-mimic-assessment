@@ -45,6 +45,7 @@ columns, so the output looks better.
 
 import random
 import sys
+__author__ = "Mwilliamson21 with help from instructors"
 
 
 def mimic_dict(filename):
@@ -74,23 +75,20 @@ def print_mimic(mimic_dict, word):
         - Randomly select a new seed word from this word list
         - Repeat this process 200 times
     """
-    if not word:
-        word = random.choice(mimic_dict.keys())
-    output = [word]
-
-    for story in xrange(0, 199):
-        word = random.choice(mimic_dict[word])
-        output.append(word)
-
-    pass
+    for i in range(200):
+        print word,
+        next_words = mimic_dict.get(word)
+        if next_words is None:
+            next_words = mimic_dict['']
+        word = random.choice(next_words)
 
 
 # Provided main(), calls mimic_dict() and mimic()
 def main():
+    # checks for command line parameter i.e. alice.txt
     if len(sys.argv) != 2:
         print 'usage: python mimic.py file-to-read'
-        sys.exit(1)
-
+        sys.exit(1)  # calling python built in libary function, terminates program
     d = mimic_dict(sys.argv[1])
     print_mimic(d, '')
 
