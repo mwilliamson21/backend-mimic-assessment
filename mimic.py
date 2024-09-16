@@ -45,12 +45,26 @@ columns, so the output looks better.
 
 import random
 import sys
+__author__ = "Mwilliamson21 with help from instructors"
 
 
 def mimic_dict(filename):
     """Returns mimic dict mapping each word to list of words which follow it."""
-    # +++your code here+++
-    raise NotImplementedError("Get to Work!")
+    # Start with an empty dict
+    m_dict = {}
+    with open(filename, 'r') as f:
+        text = f.read()
+
+    words = text.split()
+    s = ''
+    for word in words:
+        if s not in m_dict:
+            m_dict[s] = [word]
+        else:
+            m_dict[s].append(word)
+        s = word
+
+    return m_dict
 
 
 def print_mimic(mimic_dict, word):
@@ -61,16 +75,20 @@ def print_mimic(mimic_dict, word):
         - Randomly select a new seed word from this word list
         - Repeat this process 200 times
     """
-    # +++your code here+++
-    raise NotImplementedError("Get to Work!")
+    for i in range(200):
+        print word,
+        next_words = mimic_dict.get(word)
+        if next_words is None:
+            next_words = mimic_dict['']
+        word = random.choice(next_words)
 
 
 # Provided main(), calls mimic_dict() and mimic()
 def main():
+    # checks for command line parameter i.e. alice.txt
     if len(sys.argv) != 2:
         print 'usage: python mimic.py file-to-read'
-        sys.exit(1)
-
+        sys.exit(1)  # calling python built in libary function, terminates program
     d = mimic_dict(sys.argv[1])
     print_mimic(d, '')
 
